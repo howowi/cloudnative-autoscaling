@@ -1,0 +1,4 @@
+# Ignore all secrets
+secret*
+*_backup
+.vscode
