@@ -57,6 +57,13 @@ spec:
       - name: php
         # image: lhr.ocir.io/apaccpt01/php-adb:${BUILDRUN_HASH}
         image: lhr.ocir.io/apaccpt01/php-adb:qjpgczq
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "150m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
         env:
         - name: ADB_TNSNAME
           valueFrom:
@@ -106,6 +113,13 @@ spec:
       - name: nginx
         # image: lhr.ocir.io/apaccpt01/nginx-php:${BUILDRUN_HASH}
         image: lhr.ocir.io/apaccpt01/nginx-php:qjpgczq
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "150m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
         ports:
         - containerPort: 5000
       imagePullSecrets:
