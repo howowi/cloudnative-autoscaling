@@ -39,9 +39,44 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
  
 ## Steps to set up Horizontal Pod Autoscaler
 1. Create Horizontal Pod Autoscaler (HPA) for the deployment
+* Create manifest yaml file for HPA and give it a name. Eg. hpa_nginx.yml
+* Insert the content below
+```yaml
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: <hpa name>
+  namespace: <namespace>
+spec:
+  maxReplicas: <max pods>
+  minReplicas: <mind pods>
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: <deployment name>
+  targetCPUUtilizationPercentage: <cpu utilization target>
 ```
-kubectl autoscale deployment <deployment name> --min=<min pods> --max=<max pods> --cpu-percent=<cpu target%>
-```
+Example
+```yaml
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx
+  namespace: cloudnative-webapp-adb
+spec:
+  maxReplicas: 20
+  minReplicas: 3
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx
+  targetCPUUtilizationPercentage: 20
+  ```
+  * Apply to OKE cluster
+  ```
+  kubectl apply -f hpa_nginx.yml
+  ```
+  
 2. Check HPA status
 ```
 kubectl get hpa
