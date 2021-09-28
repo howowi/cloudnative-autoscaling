@@ -153,7 +153,7 @@ spec:
             - --stderrthreshold=info
             - --cloud-provider=oci
             - --max-node-provision-time=25m
-            - --nodes=1:3:ocid1.nodepool.oc1.uk-london-1.aaaaaaaacp6lkeauv2kxcox7lp3jdsrijcfufsdsb74slcgktnr7mdthucia
+            - --nodes=1:6:ocid1.nodepool.oc1.uk-london-1.aaaaaaaacp6lkeauv2kxcox7lp3jdsrijcfufsdsb74slcgktnr7mdthucia
             - --scale-down-delay-after-add=10m
             - --scale-down-unneeded-time=10m
             - --unremovable-node-recheck-timeout=5m
