@@ -128,7 +128,7 @@ kubectl describe hpa/<deployment name>
 ```
 3. Check nodes autoscaling
 * Check from OCI web console -> navigate to OKE node pool
-* Check the logs of node autoscaler as stated in step 4 and 5 of [Steps to set up Cluster Autoscaler](## steps-to-set-up-cluster autoscaler)
+* Check the logs of node autoscaler as stated in step 4 and 5 of [Steps to set up Cluster Autoscaler](# steps-to-set-up-cluster-autoscaler)
 
 
 
