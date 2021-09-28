@@ -95,11 +95,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {//Check it is comming from a form
         trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     }
     
-    $stid = oci_parse($conn, "INSERT INTO users_data (user_name, user_email, user_message) VALUES (:u_name_bv, :u_email_bv, :u_text_bv) RETURNING ID INTO :employee_id");
+    $stid = oci_parse($conn, "INSERT INTO employee_data (first_name, last_name, gender, email, hire_date,department, job, salary) VALUES (:first_name_bv, :last_name_bv, :gender_bv, :email_bv, :hire_date_bv, :department_bv, :job_bv, :salary_bv) RETURNING ID INTO :employee_id");
     
-    oci_bind_by_name($stid, ":u_name_bv", $first_name);
-    oci_bind_by_name($stid, ":u_email_bv", $email);
-    oci_bind_by_name($stid, ":u_text_bv", $department);
+    oci_bind_by_name($stid, ":first_name_bv", $first_name);
+    oci_bind_by_name($stid, ":last_name_bv", $last_name);
+    oci_bind_by_name($stid, ":gender_bv", $gender);
+    oci_bind_by_name($stid, ":email_bv", $email);
+    oci_bind_by_name($stid, ":hire_date_bv", $hire_date);
+    oci_bind_by_name($stid, ":department_bv", $department);
+    oci_bind_by_name($stid, ":job_bv", $job);
+    oci_bind_by_name($stid, ":salary_bv", $salary);
     oci_bind_by_name($stid, ":employee_id", $employee_id);
     
     $exec = oci_execute($stid);
