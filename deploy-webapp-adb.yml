@@ -56,7 +56,7 @@ spec:
       containers:
       - name: php
         # image: lhr.ocir.io/apaccpt01/php-adb:${BUILDRUN_HASH}
-        image: lhr.ocir.io/apaccpt01/php-adb:qjpgczq
+        image: lhr.ocir.io/apaccpt01/php-adb:almuk65
         resources:
           requests:
             memory: "64Mi"
