@@ -157,6 +157,7 @@ spec:
             - --scale-down-delay-after-add=10m
             - --scale-down-unneeded-time=10m
             - --unremovable-node-recheck-timeout=5m
+            - --skip-nodes-with-system-pods=false
           imagePullPolicy: "Always"
           env:
           - name: OKE_USE_INSTANCE_PRINCIPAL
