@@ -5,6 +5,75 @@ Deploy Cloud Native Website on OKE with autoscaling capability
 ```
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
+## Install Nginx Ingress Controller using Helm
+1. Add ingress-nginx repo
+```
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+```
+2. Update helm repo
+```
+helm repo update
+```
+3. Create ingress-nginx namespace
+```
+kubectl create namespace ingress-nginx
+```
+4. Install nginx ingress controller
+```
+helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --version 3.34.0 --set rbac.create=true --set controller.service.annotations."service\.beta\.kubernetes\.io/oci-load-balancer-protocol"=TCP
+```
+5. Find out public IP of nginx ingress controller
+```
+kubectl get svc ingress-nginx-controller -n ingress-nginx
+```
+
+## Install Kubernetes Dashboard using Helm
+1. Add kubernetes-dashboard repo
+```
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard
+```
+2. Update helm repo
+```
+helm repo update
+```
+3. Install Kubernetes Dashboard
+```
+helm install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --namespace kube-system --set ingress.enabled=true --set ingress.hosts='{dashboard.kube-system.<External IP>.nip.io}' --version 4.3.1
+```
+* change the `<External IP>` to the ingress controller public IP.
+
+4. Create dashboard user to access the dashboard
+* Create a manifest yaml file and give it a name. Eg. dashboard-access.yml with the content below:
+```yaml
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dashboard-user
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: dashboard-user-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: dashboard-user
+  namespace: kube-system
+```
+* Get token of the newly created user
+```
+kubectl -n kube-system describe secret `kubectl -n kube-system get secret | grep dashboard-user | awk '{print $1}'`
+```
+* Copy the content of the token
+
+5. Access the dashboard in the browser by inserting the url `https://dashboard.kube-system.<External IP>.nip.io`. Change the `<External IP>` accordingly
+
+6. Select Token in the sign in page and past the token.
 
 ## Steps to set up Cluster Autoscaler
  1. Create compartment level dynamic group
