@@ -75,6 +75,22 @@ kubectl -n kube-system describe secret `kubectl -n kube-system get secret | grep
 
 6. Select Token in the sign in page and past the token.
 
+## Install Prometheus using Heml
+1. Add kubernetes-dashboard repo
+```
+helm repo add bitnami https://charts.bitnami.com/bitnami
+```
+2. Update helm repo
+```
+helm repo update
+```
+3. Install Prometheus
+```
+kubectl create ns monitoring
+helm install prometheus bitnami/kube-prometheus --set prometheus.persistence.enabled=true --set prometheus.persistence.storageClass=oci --set prometheus.persistence.size=50Gi --set prometheus.service.type=LoadBalancer -n monitoring
+```
+
+
 ## Steps to set up Cluster Autoscaler
  1. Create compartment level dynamic group
  ```
