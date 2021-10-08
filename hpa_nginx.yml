@@ -10,4 +10,4 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: nginx
-  targetCPUUtilizationPercentage: 70
+  targetCPUUtilizationPercentage: 30
