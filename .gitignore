@@ -2,3 +2,5 @@
 secret*
 *_backup
 .vscode
+.fake
+.ionide
